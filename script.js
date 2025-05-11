@@ -17,69 +17,54 @@ const config = {
 
 const game = new Phaser.Game(config);
 let controls;
+let player;
+let cursors;
 
 function preload() {
-  this.load.image("tiles", "../assets/chinese_tileset.png");
-  this.load.tilemapTiledJSON("map", "../assets/Chinese_map.json");
-  this.load.spritesheet("Cara", "../assets/Marduk.jpeg", { frameWidth: 32, frameHeight: 48 });
-  this.load.spritesheet("Pessoas1", "../assets/NPCS1.jpeg");
-  this.load.spritesheet("Pessoas2", "../assets/NPCS2.jpeg");
+  this.load.image("tiles", "assets/chinese_tileset.png");
+  this.load.tilemapTiledJSON("map", "assets/Chinese_map.json");
+  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 32, frameHeight: 48 });
+  this.load.spritesheet("Pessoas1", "assets/NPCS1.jpeg", { frameWidth: 32, frameHeight: 48 });
+  this.load.spritesheet("Pessoas2", "assets/NPCS2.jpeg", { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
   const map = this.make.tilemap({ key: "map" });
-
-
-  // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
-  // Phaser's cache (i.e. the name you used in preload)
   const tileset = map.addTilesetImage("Chinese_map", "tiles");
 
-  // Parameters: layer name (or index) from Tiled, tileset, x, y
-  const CamadadeBlocos1 = map.createLayer("Camada de Blocos 1", tileset, 0, 0);
-  const CamadadeBlocos2 = map.createLayer("Camada de Blocos 2", tileset, 0, 0);
-  const CamadadeBlocos3 = map.createLayer("Camada de Blocos 3", tileset, 0, 0);
-  const CamadadeBlocos4 = map.createLayer("Camada de Blocos 4", tileset, 0, 0);
-
-
+  map.createLayer("Camada de Blocos 1", tileset, 0, 0);
+  map.createLayer("Camada de Blocos 2", tileset, 0, 0);
+  map.createLayer("Camada de Blocos 3", tileset, 0, 0);
+  map.createLayer("Camada de Blocos 4", tileset, 0, 0);
 
   // Criação do personagem jogador
-  player = this.add.image(400, 300, 'Cara');
+  player = this.add.sprite(400, 300, "Cara");
 
-  //animações do jogador
+  // Animações do personagem
   this.anims.create({
-    key: 'left',
-    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+    key: "left",
+    frames: this.anims.generateFrameNumbers("Cara", { start: 0, end: 3 }),
     frameRate: 10,
-    repeat: -1
+    repeat: -1,
   });
 
   this.anims.create({
-    key: 'right',
-    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    key: "right",
+    frames: this.anims.generateFrameNumbers("Cara", { start: 5, end: 8 }),
     frameRate: 10,
-    repeat: -1
+    repeat: -1,
   });
 
-  // Phaser supports multiple cameras, but you can access the default camera like this:
+  // Camera
   const camera = this.cameras.main;
-
-  // Set up the arrows to control the camera
-  const cursors = this.input.keyboard.createCursorKeys();
-  controls = new Phaser.Cameras.Controls.FixedKeyControl({
-    camera: camera,
-    left: cursors.left,
-    right: cursors.right,
-    up: cursors.up,
-    down: cursors.down,
-    speed: 0.5,
-  });
-
-  // Constrain the camera so that it isn't allowed to move outside the width/height of tilemap
+  camera.startFollow(player);
   camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
-  // Help text that has a "fixed" position on the screen
+  // Teclas
+  cursors = this.input.keyboard.createCursorKeys();
+
   this.add
-    .text(16, 16, "Arrow keys to scroll", {
+    .text(16, 16, "Setas para mover", {
       font: "18px monospace",
       fill: "#ffffff",
       padding: { x: 20, y: 10 },
@@ -88,7 +73,20 @@ function create() {
     .setScrollFactor(0);
 }
 
-function update(time, delta) {
-  // Apply the controls to the camera each update tick of the game
-  controls.update(delta);
+function update() {
+  if (cursors.left.isDown) {
+    player.x -= 2;
+    player.anims.play("left", true);
+  } else if (cursors.right.isDown) {
+    player.x += 2;
+    player.anims.play("right", true);
+  } else {
+    player.anims.stop();
+  }
+
+  if (cursors.up.isDown) {
+    player.y -= 2;
+  } else if (cursors.down.isDown) {
+    player.y += 2;
+  }
 }
