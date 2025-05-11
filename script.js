@@ -21,10 +21,14 @@ let controls;
 function preload() {
   this.load.image("tiles", "../assets/chinese_tileset.png");
   this.load.tilemapTiledJSON("map", "../assets/Chinese_map.json");
+  this.load.spritesheet("Cara", "../assets/Marduk.jpeg", { frameWidth: 32, frameHeight: 48 });
+  this.load.spritesheet("Pessoas1", "../assets/NPCS1.jpeg");
+  this.load.spritesheet("Pessoas2", "../assets/NPCS2.jpeg");
 }
 
 function create() {
   const map = this.make.tilemap({ key: "map" });
+
 
   // Parameters are the name you gave the tileset in Tiled and then the key of the tileset image in
   // Phaser's cache (i.e. the name you used in preload)
@@ -35,6 +39,26 @@ function create() {
   const CamadadeBlocos2 = map.createLayer("Camada de Blocos 2", tileset, 0, 0);
   const CamadadeBlocos3 = map.createLayer("Camada de Blocos 3", tileset, 0, 0);
   const CamadadeBlocos4 = map.createLayer("Camada de Blocos 4", tileset, 0, 0);
+
+
+
+  // Criação do personagem jogador
+  player = this.add.image(400, 300, 'Cara');
+
+  //animações do jogador
+  this.anims.create({
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+    frameRate: 10,
+    repeat: -1
+  });
+
+  this.anims.create({
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+    frameRate: 10,
+    repeat: -1
+  });
 
   // Phaser supports multiple cameras, but you can access the default camera like this:
   const camera = this.cameras.main;
