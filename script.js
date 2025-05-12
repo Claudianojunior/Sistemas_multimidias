@@ -23,7 +23,7 @@ let cursors;
 function preload() {
   this.load.image("tiles", "assets/chinese_tileset.png");
   this.load.tilemapTiledJSON("map", "assets/Chinese_map.json");
-  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 45, frameHeight: 62 });
+  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 45, frameHeight: 50 });
   this.load.spritesheet("Pessoas1", "assets/NPCS1.jpeg", { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet("Pessoas2", "assets/NPCS2.jpeg", { frameWidth: 32, frameHeight: 48 });
 }
