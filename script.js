@@ -49,7 +49,7 @@ function create() {
     frameRate: 9,
     repeat: -1,
   });
-
+  //teste
   this.anims.create({
     key: "right",
     frames: this.anims.generateFrameNumbers("Cara", { start: 28, end: 30 }),
