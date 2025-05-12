@@ -26,6 +26,7 @@ function preload() {
   this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 45, frameHeight: 50 });
   this.load.spritesheet("Pessoas1", "assets/NPCS1.jpeg", { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet("Pessoas2", "assets/NPCS2.jpeg", { frameWidth: 32, frameHeight: 48 });
+  this.load.spritesheet("NPC_Rei", "assets/Rei-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
 }
 
 function create() {
@@ -39,7 +40,10 @@ function create() {
 
   
   // Criação do personagem jogador
-  player = this.add.sprite(400, 300, "Cara");
+  player = this.add.sprite(400, 1200, "Cara");
+
+  //Criação npc rei
+  npc_rei = this.add.sprite(1020, 340,"NPC_Rei",1);
  
 
   // Animações do personagem
