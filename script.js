@@ -23,7 +23,7 @@ let cursors;
 function preload() {
   this.load.image("tiles", "assets/chinese_tileset.png");
   this.load.tilemapTiledJSON("map", "assets/Chinese_map.json");
-  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 45, frameHeight: 50 });
+  this.load.spritesheet("Cara", "assets/Marduk_clean_tranparent.png", { frameWidth: 45, frameHeight: 50 });
   this.load.spritesheet("Pessoas1", "assets/NPCS1.jpeg", { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet("Pessoas2", "assets/NPCS2.jpeg", { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet("NPC_Rei", "assets/Rei-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
@@ -33,46 +33,55 @@ function create() {
   const map = this.make.tilemap({ key: "map" });
   const tileset = map.addTilesetImage("Chinese_map", "tiles");
 
-  map.createLayer("Camada de Blocos 1", tileset, 0, 0);
-  map.createLayer("Camada de Blocos 2", tileset, 0, 0);
-  map.createLayer("Camada de Blocos 3", tileset, 0, 0);
-  map.createLayer("Camada de Blocos 4", tileset, 0, 0);
+  const camada1 = map.createLayer("Camada de Blocos 1", tileset, 0, 0);
+  const camada2 = map.createLayer("Camada de Blocos 2", tileset, 0, 0);
+  const camada3 = map.createLayer("Camada de Blocos 3", tileset, 0, 0);
+  const camada4 = map.createLayer("Camada de Blocos 4", tileset, 0, 0);
 
-  
+  /*camada2.setCollisionByProperty({ Collides: true });
+  camada3.setCollisionByProperty({ Collides: true });
+  camada4.setCollisionByProperty({ Collides: true });*/
+
   // Criação do personagem jogador
-  player = this.add.sprite(400, 1200, "Cara");
-
+  player = this.add.sprite(410, 1200, "Cara");
+  /*this.player.body.gravity.y = 0;
+  this.physics.world.gravity.y = 0;*/
+  
   //Criação npc rei
   npc_rei = this.add.sprite(1020, 340,"NPC_Rei",1);
- 
 
+  //Adicionando colisao entre player e layers
+  /*this.physics.add.collider(this.player, camada2);
+  this.physics.add.collider(this.player, camada3);
+  this.physics.add.collider(this.player, camada4);*/
+  
   // Animações do personagem
   this.anims.create({
-    key: "left",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 21, end: 23 }),
-    frameRate: 9,
-    repeat: -1,
-  });
-  //teste
-  this.anims.create({
-    key: "right",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 28, end: 30 }),
+    key: 'down',
+    frames: this.anims.generateFrameNumbers('Cara', { start: 0, end: 2 }),
     frameRate: 10,
-    repeat: -1,
+    repeat: -1
   });
-
+  
   this.anims.create({
-    key: "up",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 35, end: 37 }),
+    key: 'left',
+    frames: this.anims.generateFrameNumbers('Cara', { start: 3, end: 5 }),
     frameRate: 10,
-    repeat: -1,
+    repeat: -1
   });
-
+  
   this.anims.create({
-    key: "down",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 14, end: 16 }),
+    key: 'right',
+    frames: this.anims.generateFrameNumbers('Cara', { start: 6, end: 8 }),
     frameRate: 10,
-    repeat: -1,
+    repeat: -1
+  });
+  
+  this.anims.create({
+    key: 'up',
+    frames: this.anims.generateFrameNumbers('Cara', { start: 9, end: 11 }),
+    frameRate: 10,
+    repeat: -1
   });
 
   // Camera
@@ -100,18 +109,15 @@ function update() {
   } else if (cursors.right.isDown) {
     player.x += 2;
     player.anims.play("right", true);
-  } 
-    
+  } else {
+    player.anims.stop();
+  }
 
-  else if (cursors.up.isDown) {
+  if (cursors.up.isDown) {
     player.y -= 2;
     player.anims.play("up", true);
   } else if (cursors.down.isDown) {
     player.y += 2;
     player.anims.play("down", true);
-  } else{
-      player.anims.stop();
   }
-    
 }
-
