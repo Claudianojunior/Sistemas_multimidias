@@ -23,7 +23,7 @@ let cursors;
 function preload() {
   this.load.image("tiles", "assets/chinese_tileset.png");
   this.load.tilemapTiledJSON("map", "assets/Chinese_map.json");
-  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 32, frameHeight: 48 });
+  this.load.spritesheet("Cara", "assets/Marduk.jpeg", { frameWidth: 45, frameHeight: 62 });
   this.load.spritesheet("Pessoas1", "assets/NPCS1.jpeg", { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet("Pessoas2", "assets/NPCS2.jpeg", { frameWidth: 32, frameHeight: 48 });
 }
@@ -37,20 +37,36 @@ function create() {
   map.createLayer("Camada de Blocos 3", tileset, 0, 0);
   map.createLayer("Camada de Blocos 4", tileset, 0, 0);
 
+  
   // Criação do personagem jogador
   player = this.add.sprite(400, 300, "Cara");
+ 
 
   // Animações do personagem
   this.anims.create({
     key: "left",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 0, end: 3 }),
-    frameRate: 10,
+    frames: this.anims.generateFrameNumbers("Cara", { start: 21, end: 23 }),
+    frameRate: 9,
     repeat: -1,
   });
 
   this.anims.create({
     key: "right",
-    frames: this.anims.generateFrameNumbers("Cara", { start: 5, end: 8 }),
+    frames: this.anims.generateFrameNumbers("Cara", { start: 28, end: 30 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "up",
+    frames: this.anims.generateFrameNumbers("Cara", { start: 35, end: 37 }),
+    frameRate: 10,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "down",
+    frames: this.anims.generateFrameNumbers("Cara", { start: 14, end: 16 }),
     frameRate: 10,
     repeat: -1,
   });
@@ -80,13 +96,18 @@ function update() {
   } else if (cursors.right.isDown) {
     player.x += 2;
     player.anims.play("right", true);
-  } else {
-    player.anims.stop();
-  }
+  } 
+    
 
-  if (cursors.up.isDown) {
+  else if (cursors.up.isDown) {
     player.y -= 2;
+    player.anims.play("up", true);
   } else if (cursors.down.isDown) {
     player.y += 2;
+    player.anims.play("down", true);
+  } else{
+      player.anims.stop();
   }
+    
 }
+
