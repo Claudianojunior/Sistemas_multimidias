@@ -71,6 +71,20 @@ class MainScene extends Phaser.Scene {
 
     // Teclado
     this.cursors = this.input.keyboard.createCursorKeys();
+  
+    this.add.text(16, 16, "Cidade antiga!", {
+      font: "24px monospace",
+      fill: "#ffffff",
+      backgroundColor: "#000000",
+      padding: { x: 20, y: 10 },
+    }).setScrollFactor(0);
+    
+    this.add.text(16, 50, "Setas para movimentar, Enter para mudar de fase!", {
+      font: "24px monospace",
+      fill: "#ffffff",
+      backgroundColor: "#000000",
+      padding: { x: 20, y: 10 },
+    }).setScrollFactor(0);
   }
 
   update() {
