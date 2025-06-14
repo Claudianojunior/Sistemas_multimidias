@@ -17,7 +17,7 @@ class BattleScene extends Phaser.Scene{
   preload(){
     this.load.spritesheet("Cara", "assets/Marduk_clean_tranparent.png", { frameWidth: 45, frameHeight: 50 });
     this.load.spritesheet("Vilao", "assets/Vilao-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
-    this.load.spritesheet("Cura", "assets/heal.png", {frameWidth: 80, frameHeight: 130});
+    this.load.spritesheet("Cura", "assets/heal.png", {frameWidth: 128, frameHeight: 130});
   }
 
   create(){
@@ -43,7 +43,7 @@ class BattleScene extends Phaser.Scene{
         { key: 'Cura', frame: 10 }
     ],
       
-      frameRate: 4,
+      frameRate: 10,
       repeat: 0
     });
     this.player = this.add.sprite(150,300,"Cara",0);
