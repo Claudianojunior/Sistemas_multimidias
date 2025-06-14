@@ -60,7 +60,7 @@ class BattleScene extends Phaser.Scene{
 
     this.input.keyboard.on('keydown-A', () => {
       if (this.currentTurn === 'player') {
-        this.attacbk(this.player, this.enemy);
+        this.attack(this.player, this.enemy);
       }
     });
 
