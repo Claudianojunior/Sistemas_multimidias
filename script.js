@@ -18,9 +18,27 @@ class BattleScene extends Phaser.Scene{
     this.load.spritesheet("Cara", "assets/Marduk_clean_tranparent.png", { frameWidth: 45, frameHeight: 50 });
     this.load.spritesheet("Vilao", "assets/Vilao-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
     this.load.spritesheet("Cura", "assets/heal.png", {frameWidth: 128, frameHeight: 130});
+    this.load.image('Ataque1', 'assets/attack_frame1.png', { frameWidth: 45, frameHeight: 50 });
+    this.load.image('Ataque2', 'assets/attack_frame2.png', { frameWidth: 45, frameHeight: 50 });
+    this.load.image('Ataque3', 'assets/attack_frame3.png', { frameWidth: 45, frameHeight: 50 });
+    this.load.image('Ataque4', 'assets/attack_frame4.png', { frameWidth: 45, frameHeight: 50 });
+    this.load.image('Ataque5', 'assets/attack_frame5.png', { frameWidth: 45, frameHeight: 50 });
   }
 
   create(){
+
+    this.anims.create({
+      key: 'ataque',
+      frames: [
+          { key: 'Ataque1' },
+          { key: 'Ataque2' },
+          { key: 'Ataque3' },
+          { key: 'Ataque4' },
+          { key: 'Ataque5' }
+      ],
+      frameRate: 8,
+      repeat: 0
+     });
     
     this.anims.create({
       key: 'cura',
@@ -93,8 +111,22 @@ class BattleScene extends Phaser.Scene{
   }
 
   attack(attacker, target) {
+    const attackEffect = this.add.sprite(
+      target.x,
+      target.y,
+      'Ataque1'
+    )
+    .setDepth(10)
+    .setScale(0.1) 
+    .setOrigin(0.5)
+    attackEffect.anims.play('ataque');
     const damage = Phaser.Math.Between(10, 25);
     target.hp = Math.max(0, target.hp - damage);
+    if (damage > 20) { // Critical hit
+      this.cameras.main.shake(300, 0.02);
+      this.cameras.main.flash(200, 255, 0, 0);
+      this.actionText.setText(`${attacker.texture.key} causou um acerto crítio em ${target.texture.key}!`);
+  }
 
     this.actionText.setText(`${attacker.texture.key} causou ${damage} de dano em ${target.texture.key}!`);
     
