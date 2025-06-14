@@ -17,9 +17,35 @@ class BattleScene extends Phaser.Scene{
   preload(){
     this.load.spritesheet("Cara", "assets/Marduk_clean_tranparent.png", { frameWidth: 45, frameHeight: 50 });
     this.load.spritesheet("Vilao", "assets/Vilao-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
+    this.load.spritesheet("Cura", "assets/heal.png", {frameWidth: 80, frameHeight: 130});
   }
 
   create(){
+    
+    this.anims.create({
+      key: 'cura',
+      frames: [
+        // First row (frames 0-4)
+        { key: 'Cura', frame: 0 },
+        { key: 'Cura', frame: 1 },
+        { key: 'Cura', frame: 2 },
+        { key: 'Cura', frame: 3 },
+        { key: 'Cura', frame: 4 },
+        
+        // Second row (frames 5-9)
+        { key: 'Cura', frame: 5 },
+        { key: 'Cura', frame: 6 },
+        { key: 'Cura', frame: 7 },
+        { key: 'Cura', frame: 8 },
+        { key: 'Cura', frame: 9 },
+        
+        // Final frame (frame 10)
+        { key: 'Cura', frame: 10 }
+    ],
+      
+      frameRate: 4,
+      repeat: 0
+    });
     this.player = this.add.sprite(150,300,"Cara",0);
     this.player.hp = 100;
 
@@ -34,7 +60,7 @@ class BattleScene extends Phaser.Scene{
 
     this.input.keyboard.on('keydown-A', () => {
       if (this.currentTurn === 'player') {
-        this.attack(this.player, this.enemy);
+        this.attacbk(this.player, this.enemy);
       }
     });
 
@@ -78,7 +104,17 @@ class BattleScene extends Phaser.Scene{
   }
 
   defend(character) {
+    const healingSprite = this.add.sprite(
+      character.x, 
+      character.y,  
+      "Cura"
+    )
+    .setDepth(1);
+    healingSprite.anims.play('cura');
     const heal = Phaser.Math.Between(5, 15);
+    healingSprite.on('animationcomplete', () => {
+      healingSprite.destroy();
+    });
     character.hp += heal;
     if (character.hp > 100) character.hp = 100;
 
@@ -290,6 +326,7 @@ class SecondScene extends Phaser.Scene {
       frameRate: 10,
       repeat: -1
     });
+
 
     // Câmera
     this.cameras.main.startFollow(this.player);
