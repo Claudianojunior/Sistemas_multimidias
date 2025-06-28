@@ -1,3 +1,16 @@
-# stackblitz-starters-ju5sgcam
+# Projeto de Sistemas Multimídia
+---
+## TODO
 
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Claudianojunior/stackblitz-starters-ju5sgcam)
+- [ ] INTRO INICIAL
+- [ ] CRIAR DIALOGO
+    - [ ] VILOES
+    - [ ] REI INICIAL
+    - [ ] REI AO FINAL
+- [ ] FÍSICA
+    - [ ] PREDIO CIDADE
+    - [ ] LIMITE DO MAPA
+    - [ ] PERSONAGENS
+- [ ] CRIAR 4 VILOES
+- [ ] CRIAR BACK-END
+---
