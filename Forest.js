@@ -56,9 +56,14 @@ export class ForestScene extends Phaser.Scene {
 
   update() {
     this.protagonista.update();
-
-    if (Phaser.Input.Keyboard.JustDown(this.battleKey)) {
-      console.log("Tecla B pressionada! Iniciando batalha...");
+  
+    const player = this.protagonista.getSprite();
+    const vilao = this.npc_vilao;
+  
+    const distancia = Phaser.Math.Distance.Between(player.x, player.y, vilao.x, vilao.y);
+  
+    if (distancia < 50) { // distância mínima para iniciar a batalha
+      console.log("Proximidade com o vilão detectada. Iniciando batalha...");
       this.scene.start("BattleScene");
     }
   }

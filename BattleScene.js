@@ -1,7 +1,6 @@
 import { Vilao } from './Vilao.js';
 import { Protagonista } from './Protagonista.js';
 
-
 export class BattleScene extends Phaser.Scene {
   constructor() {
     super({ key: 'BattleScene' });
@@ -47,13 +46,12 @@ export class BattleScene extends Phaser.Scene {
     this.player = this.protagonista.getSprite();
     this.player.hp = 100;
 
-    // Inimigo direto
+    // Inimigo
     this.vilao = new Vilao(this, 650, 300);
     this.enemy = this.vilao.getSprite();
-    
-    
+    this.enemy.hp = 100;
 
-    // Turno
+    // Turno inicial
     this.currentTurn = 'player';
 
     // Textos
@@ -91,6 +89,14 @@ export class BattleScene extends Phaser.Scene {
     this.updateStatus();
   }
 
+  // Método genérico para calcular dano
+  calculateDamage(attacker, target) {
+    // Exemplo básico, pode personalizar por personagem
+    const minDmg = (attacker === this.player) ? 10 : 8;
+    const maxDmg = (attacker === this.player) ? 30 : 20;
+    return Phaser.Math.Between(minDmg, maxDmg);
+  }
+
   attack(attacker, target) {
     const attackEffect = this.add.sprite(target.x, target.y, 'Ataque1')
       .setDepth(10)
@@ -98,7 +104,7 @@ export class BattleScene extends Phaser.Scene {
       .setOrigin(0.5);
     attackEffect.anims.play('ataque');
 
-    const damage = this.vilao.attack(this.player);
+    const damage = this.calculateDamage(attacker, target);
 
     target.hp = Math.max(0, target.hp - damage);
 
@@ -144,9 +150,8 @@ export class BattleScene extends Phaser.Scene {
 
   enemyTurn() {
     if (this.enemy.hp > 0) {
-      const damage = Phaser.Math.Between(10, 20);
-      this.player.hp -= damage;
-      this.player.hp = Math.max(0, this.player.hp);
+      const damage = this.calculateDamage(this.enemy, this.player);
+      this.player.hp = Math.max(0, this.player.hp - damage);
       this.actionText.setText(`Vilao atacou e causou ${damage} de dano!`);
       if (!this.checkBattleResult()) {
         this.nextTurn();
