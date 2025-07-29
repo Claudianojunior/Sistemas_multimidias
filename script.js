@@ -10,7 +10,8 @@ let player;
 let cursors;
 import { CityScene } from "./City.js";
 import { BattleScene } from "./BattleScene.js";
-import {ForestScene} from  "./Forest.js"
+import {ForestScene} from  "./Forest.js";
+import {MainScene} from "./Mainscene.js"
 
 const config = {
   type: Phaser.AUTO,
@@ -18,7 +19,7 @@ const config = {
   height: 600,
   parent: "game-container",
   pixelArt: true,
-  scene: [CityScene, ForestScene, BattleScene],
+  scene: [MainScene, CityScene, ForestScene, BattleScene],
   activeScene: 'MainScene'
 };
 

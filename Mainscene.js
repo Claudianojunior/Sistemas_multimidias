@@ -27,7 +27,7 @@ export class MainScene extends Phaser.Scene {
       botao.innerText = "Iniciar Aventura";
       botao.style.position = "absolute";
       botao.style.top = "200px";
-      botao.style.left = "calc(50% - 80px)";
+      botao.style.left = "calc(50% - 100px)";
       botao.id = "startButton";
       document.body.appendChild(botao);
   
