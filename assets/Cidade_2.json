@@ -164,7 +164,7 @@
  "tilesets":[
         {
          "firstgid":1,
-         "source":"chinese_tileset.tsx"
+         "source":"chinese_tileset.png"
         }],
  "tilewidth":32,
  "type":"map",

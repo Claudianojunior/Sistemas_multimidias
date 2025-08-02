@@ -40,13 +40,6 @@ export class ForestScene extends Phaser.Scene {
       padding: { x: 20, y: 10 },
     }).setScrollFactor(0);
 
-    this.add.text(16, 50, "Aperte B para iniciar a batalha!", {
-      font: "24px monospace",
-      fill: "#ffffff",
-      backgroundColor: "#000000",
-      padding: { x: 20, y: 10 },
-    }).setScrollFactor(0);
-
     // Enter para voltar para MainScene
     this.input.keyboard.on('keydown-ENTER', () => {
       console.log("Tecla Enter pressionada! Trocando de cena...");

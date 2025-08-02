@@ -10,8 +10,9 @@ let player;
 let cursors;
 import { CityScene } from "./City.js";
 import { BattleScene } from "./BattleScene.js";
-import {ForestScene} from  "./Forest.js";
-import {MainScene} from "./Mainscene.js"
+import {ForestScene} from  "./Forest.js"
+import { FinalScene } from "./FinalScene.js";
+import { BattleScene_final } from "./BattleScene_final.js";
 
 const config = {
   type: Phaser.AUTO,
@@ -19,8 +20,8 @@ const config = {
   height: 600,
   parent: "game-container",
   pixelArt: true,
-  scene: [MainScene, CityScene, ForestScene, BattleScene],
-  activeScene: 'MainScene'
+  scene: [ CityScene, ForestScene, BattleScene, FinalScene, BattleScene_final]
 };
 
 const game = new Phaser.Game(config);
+game.scene.start('CityScene');

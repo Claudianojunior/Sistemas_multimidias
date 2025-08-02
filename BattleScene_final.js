@@ -1,14 +1,15 @@
-import { Vilao } from './Vilao.js';
+import { Vilao_Final } from './Vilao_final.js';
 import { Protagonista } from './Protagonista.js';
 
-export class BattleScene extends Phaser.Scene {
+export class BattleScene_final extends Phaser.Scene {
   constructor() {
-    super({ key: 'BattleScene' });
+    super({ key: 'BattleScene_final' });
   }
 
   preload() {
+    console.log("🟡 Preloading BattleScene_final...");
     this.load.spritesheet("Cara", "assets/Marduk_clean_tranparent.png", { frameWidth: 45, frameHeight: 50 });
-    this.load.spritesheet("Vilao", "assets/Vilao-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
+    this.load.spritesheet("Vilao_final", "assets/Vilao_final-removebg-preview.png", { frameWidth: 45, frameHeight: 50 });
     this.load.spritesheet("Cura", "assets/heal.png", { frameWidth: 128, frameHeight: 130 });
 
     this.load.image('Ataque1', 'assets/attack_frame1.png');
@@ -19,7 +20,12 @@ export class BattleScene extends Phaser.Scene {
   }
 
   create() {
+    // Adiciona um fundo simples para que a tela não fique preta.
+    // O setDepth(-1) garante que o fundo fique atrás de todos os outros objetos.
+    this.add.rectangle(400, 300, 800, 600, 0x5a5a5a).setDepth(-1);
+
     // Animações de ataque
+    console.log("✅ Cena BattleScene_final carregada com sucesso!");
     this.anims.create({
       key: 'ataque',
       frames: [
@@ -47,8 +53,9 @@ export class BattleScene extends Phaser.Scene {
     this.player.hp = 100;
 
     // Inimigo
-    this.vilao = new Vilao(this, 650, 300);
-    this.enemy = this.vilao.getSprite();
+    // Corrige a capitalização do nome da classe para 'Vilao_Final' para corresponder ao import.
+    this.Vilao_final = new Vilao_Final(this, 650, 300);
+    this.enemy = this.Vilao_final.getSprite();
     this.enemy.hp = 100;
 
     // Turno inicial
@@ -166,8 +173,7 @@ export class BattleScene extends Phaser.Scene {
       return true;
     } else if (this.enemy.hp <= 0) {
       this.statusText.setText("Você venceu a batalha!");
-      // Altera para chamar a "FinalScene" quando o jogador vence.
-      this.time.delayedCall(2000, () => this.scene.start("FinalScene"));
+      this.time.delayedCall(2000, () => this.scene.start("SecondScene"));
       return true;
     }
     return false;
