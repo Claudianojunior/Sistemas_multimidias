@@ -70,14 +70,14 @@ export class CityScene extends Phaser.Scene {
 
       this.time.delayedCall(3000, () => {
         mensagem.destroy();
-        this.scene.start("SecondScene");
+        this.scene.start("ForestScene");
       });
     }
 
     // Alternativamente, troca de cena se entrar em área específica (sem precisar do NPC)
     if (!this.cenaMudou && x > 1500 && x < 1600 && y > 300 && y < 400) {
       this.cenaMudou = true;
-      this.scene.start("SecondScene");
+      this.scene.start("ForestScene");
     }
   }
 }

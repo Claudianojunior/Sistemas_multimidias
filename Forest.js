@@ -2,7 +2,7 @@ import { Protagonista } from './Protagonista.js';
 
 export class ForestScene extends Phaser.Scene {
   constructor() {
-    super({ key: 'SecondScene' });
+    super({ key: 'ForestScene' });
   }
 
   preload() {
@@ -41,10 +41,7 @@ export class ForestScene extends Phaser.Scene {
     }).setScrollFactor(0);
 
     // Enter para voltar para MainScene
-    this.input.keyboard.on('keydown-ENTER', () => {
-      console.log("Tecla Enter pressionada! Trocando de cena...");
-      this.scene.start("MainScene");
-    });
+    
   }
 
   update() {
